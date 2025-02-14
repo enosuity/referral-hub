@@ -1,0 +1,54 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+
+# Docker volumes and data
+data/
+postgres_data/
+redis_data/
+
+# Logs
+*.log
+logs/
+
+# Test artifacts
+coverage/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
+# Binary files
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Debug files
+*.pdb
+
+# Dependencies
+vendor/
+
+# Generated documentation
+doc/
+docs/target/
+
+# System Files
+.DS_Store
+Thumbs.db 
