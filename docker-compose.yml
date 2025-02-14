@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .    # Changed back to current directory since everything is in api-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/referral_db
+      - REDIS_URL=redis://redis:6379
+      - RUST_LOG=debug
+      - SERVER_PORT=8080
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  db:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=referral_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    command: ["postgres", "-c", "max_connections=100", "-c", "shared_buffers=256MB"]
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local 

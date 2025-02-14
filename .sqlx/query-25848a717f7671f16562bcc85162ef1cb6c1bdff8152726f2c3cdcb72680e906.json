@@ -1,0 +1,42 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO referrals (id, user_id, referral_code, created_at)\n            VALUES ($1, $2, $3, NOW())\n            RETURNING id, user_id, referral_code, created_at\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "referral_code",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Varchar"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "25848a717f7671f16562bcc85162ef1cb6c1bdff8152726f2c3cdcb72680e906"
+}

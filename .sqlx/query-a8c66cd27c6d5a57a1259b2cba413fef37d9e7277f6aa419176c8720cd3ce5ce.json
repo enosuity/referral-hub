@@ -1,0 +1,38 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT id, user_id, referral_code, created_at\n            FROM referrals\n            ORDER BY created_at DESC\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "referral_code",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "a8c66cd27c6d5a57a1259b2cba413fef37d9e7277f6aa419176c8720cd3ce5ce"
+}
